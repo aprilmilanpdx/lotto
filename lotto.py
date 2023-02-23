@@ -1,6 +1,6 @@
 import random
 lottery_numbers = set(random.sample(list(range(22)), 6))
-print(lottery_numbers)
+
 # Here are your players; find out who has the most numbers matching lottery_numbers!
 players = [
     {"name": "Rolf", "numbers": {1, 3, 5, 7, 9, 11}},
@@ -9,12 +9,20 @@ players = [
     {"name": "Jen", "numbers": {19, 20, 12, 7, 3, 5}},
 ]
 
-for player in players:
-  player_numbers = (player["numbers"])
-  # print(player_numbers)
-  numbers_matched = lottery_numbers.intersection(player_numbers)
-  print(player["name"], numbers_matched, len(numbers_matched))
+winning_player = players[0]
 
-# Then, print out a line such as "Jen won 1000.".
+for player in players:
+  numbers_matched = len(player["numbers"].intersection(lottery_numbers))
+  if numbers_matched > len(winning_player["numbers"].intersection(lottery_numbers)): 
+    winning_player = player 
+
 # The winnings are calculated with the formula:
 # 100 ** len(numbers_matched)
+winnings = 100 ** len(winning_player["numbers"].intersection(lottery_numbers))
+
+# Then, print out a line such as "Jen won 1000.".
+print(f"{winning_player['name']} won {winnings}.")
+
+
+
+
